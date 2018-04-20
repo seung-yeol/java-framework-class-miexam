@@ -11,15 +11,17 @@ import static org.junit.Assert.assertThat;
 
 public class ProductDaoTest {
     private ProductDao productDao;
+    private ProductDao hanllaDao;
+    private ProductDao JejuDao;
 
     @Before
     public void setup() {
-        productDao = new ProductDao();
+//        productDao = new ProductDao();
+        hanllaDao = new HanllaDao();
     }
 
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        ProductDao productDao = new ProductDao();
         Long id = 1L;
         String title = "제주감귤";
         Integer price = 15000;
@@ -45,4 +47,21 @@ public class ProductDaoTest {
         assertThat(product.getTitle(), is(insertedProduct.getTitle()));
         assertThat(product.getPrice(), is(insertedProduct.getPrice()));
     }
+
+    @Test
+    public void hanllaGet() throws SQLException, ClassNotFoundException {
+        Product product = new Product();
+
+        product.setTitle("제제주주감귤귤");
+        product.setPrice(12345);
+
+        Long id = hanllaDao.insert(product);
+
+        Product insertedProduct = hanllaDao.get(id);
+
+        assertThat(id, is(insertedProduct.getId()));
+        assertThat(product.getTitle(), is(insertedProduct.getTitle()));
+        assertThat(product.getPrice(), is(insertedProduct.getPrice()));
+    }
+
 }
