@@ -3,6 +3,7 @@ package kr.ac.jejunu;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import javax.sql.DataSource;
@@ -21,7 +22,7 @@ public class DaoFactory {
 
     @Bean
     public ProductDao productDao() {
-        return new ProductDao(jdbcContext());
+        return new ProductDao(new JdbcTemplate(dataSource()));
     }
 
     @Bean
@@ -41,7 +42,4 @@ public class DaoFactory {
         return dataSource;
     }
 
-    @Bean JdbcContext jdbcContext(){
-        return new JdbcContext(dataSource());
-    }
 }
